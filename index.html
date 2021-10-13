@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>轮播图</title>
+    <style>
+        .jm-header {
+            padding-bottom: 20px;
+            text-align: center;
+            color: transparent;
+            background-color: black;
+            text-shadow: rgba(255, 255, 255, 0.5) 0 5px 6px, rgba(255, 255, 255, 0.2) 1px 3px 3px;
+            -webkit-background-clip: text;
+            font-size: 30px;
+            font-weight: 600;
+        }
+        
+        .jm-slide {
+            position: relative;
+            width: 800px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .jm-slide-images {
+            position: relative;
+            width: 3200px;
+            transition: left 1s;
+        }
+        
+        .clearfix::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+        
+        .jm-slide-image {
+            /*display: none;*/
+            float: left;
+        }
+        
+        .jm-slide-image-active {
+            /*display: inline-block;*/
+        }
+        
+        .jm-slide-button {
+            height: 50px;
+            width: 30px;
+            color: #fff;
+            background: #000;
+            opacity: 0.3;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .jm-left {
+            left: 0;
+        }
+        
+        .jm-right {
+            right: 0;
+        }
+        /*用来垂直居中一个 css 元素的套路*/
+        
+        .jm-vertical-center {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .jm-slide-dots {
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+        }
+        
+        .jm-slide-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: red;
+        }
+        
+        .jm-dot-active {
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 轮播图 -->
+    <!-- data-imgs 是图片的总数 -->
+    <!-- data-active 是当前显示的图片的下标 -->
+    <div class="jm-header">JM的前端学习小站</div>
+    <div class="jm-slide" data-imgs="4" data-active="0">
+        <div class="jm-slide-images clearfix">
+            <a href="./jm_2048/jin_2048.html"><img id="id-jmimage-0" class="jm-slide-image jm-slide-image-active" src="slideimages/1.jpg" alt="towers"></a>
+
+            <a href="./jm_mine_sweeper/mine_sweeper.html"><img id="id-jmimage-1" class="jm-slide-image" src="slideimages/2.jpg" alt="Shrines"></a>
+            <a href="jm_music_player/mp.html"><img id="id-jmimage-2" class="jm-slide-image" src="slideimages/3.jpg" alt="Shrines"></a>
+            <img id="id-jmimage-3" class="jm-slide-image" src="slideimages/4.jpg" alt="Villages">
+        </div>
+        <div class="jm-slide-buttons">
+            <!--
+                    HTML 转义
+                    要在 html 里面表示 < > 这些特殊符号的时候, 必须使用 HTML 转义符号
+                    &lt; 表示 <
+                    &gt; 表示 >
+                -->
+            <button class="jm-slide-button jm-left jm-vertical-center" data-offset="-1">
+                    &lt;
+                </button>
+            <button class="jm-slide-button jm-right jm-vertical-center" data-offset="1">
+                    &gt;
+                </button>
+        </div>
+        <div class="jm-slide-dots">
+            <div id="id-dot-0" class="jm-slide-dot jm-dot-active" data-index="0"></div>
+            <div id="id-dot-1" class="jm-slide-dot" data-index="1"></div>
+            <div id="id-dot-2" class="jm-slide-dot" data-index="2"></div>
+            <div id="id-dot-3" class="jm-slide-dot" data-index="3"></div>
+        </div>
+    </div>
+    <script src="kuro.js"></script>
+    <script src="slider.js"></script>
+</body>
+
+</html>

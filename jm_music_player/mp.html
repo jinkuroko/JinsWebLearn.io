@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+     :root {
+        font-size: 14px;
+        font-family: 'Roboto', sans-serif;
+        --bg: #EBEBEB;
+        --black: #333333;
+        --prog: #A4B7BE;
+    }
+    
+    body {
+        background: var(--bg);
+        color: var(--black);
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    .player {
+        width: 80%;
+        max-width: 275px;
+        min-height: 550px;
+        margin: 2rem auto;
+        padding: 3rem 1.25rem;
+        background: var(--bg);
+        box-shadow: 20px 20px 60px #c8c8c8, -20px -20px 60px #ffffff;
+        border-radius: 15px;
+        border: 1px solid rgb(223, 223, 223);
+        position: relative;
+    }
+    
+    .player::before {
+        content: '';
+        display: block;
+        background: #333;
+        width: 100px;
+        height: 20px;
+        border-radius: 0 0 50% 50%;
+        position: absolute;
+        top: 0;
+        left: 87px;
+    }
+    
+    .header {
+        height: 40px;
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        align-items: center;
+        justify-items: center;
+    }
+    
+    .header>.button {
+        width: 2rem;
+        height: 2rem;
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        color: var(--black);
+        background: linear-gradient(145deg, #fbfbfb, #d4d4d4);
+        box-shadow: 4px 4px 7px #cccccc, -4px -4px 7px #ffffff;
+        border-radius: 6px;
+    }
+    
+    .art {
+        display: block;
+        width: 175px;
+        height: 175px;
+        margin: 1rem auto;
+        border-radius: 50%;
+        border: 4px solid #EBEBED;
+        box-shadow: 16px 16px 57px #acacac, -16px -16px 57px #ffffff;
+    }
+    
+    .info {
+        margin: 1.5rem 0;
+        text-align: center;
+    }
+    
+    .info h1 {
+        color: var(--black);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    
+    .info p {
+        font-size: 1.15rem;
+        color: var(--prog);
+    }
+    
+    .prog {
+        padding: 10px 0;
+    }
+    
+    .prog-time {
+        padding: 3px 5px;
+        color: var(--prog);
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .prog-time>p {
+        font-size: 0.65rem;
+    }
+    
+    .prog-bar {
+        width: 100%;
+        height: 10px;
+        padding: 1px;
+        border-radius: 25px;
+        background: linear-gradient(145deg, #fbfbfb, #d4d4d4);
+        box-shadow: 5px 5px 10px #a5a5a5, -5px -5px 10px #ffffff;
+    }
+    
+    .prog-bar-inner {
+        height: 8px;
+        background: var(--prog);
+        border-radius: 25px;
+        cursor: pointer;
+    }
+    /* s */
+    
+    .outer {
+        position: relative;
+        width: 100%;
+        height: 8px;
+        margin-bottom: 20px;
+    }
+    
+    .inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 8px;
+        border-radius: 25px;
+        background: var(--prog);
+    }
+    
+    .dot {
+        position: absolute;
+        top: -1px;
+        right: -4px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--prog);
+    }
+    /* s */
+    
+    .buttons {
+        margin: 2rem 0;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .button {
+        color: var(--prog);
+        border-radius: 50%;
+        margin: 0 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 5px 5px 10px #d4d4d4, -5px -5px 10px #ffffff;
+    }
+    
+    .button-sm {
+        width: 2rem;
+        height: 2rem;
+        opacity: 0.75;
+    }
+    
+    .button-md {
+        width: 2.5rem;
+        height: 2.5rem;
+        opacity: 0.85;
+    }
+    
+    .button-lg {
+        width: 3.25rem;
+        height: 3.25rem;
+    }
+    
+    .button:active {
+        box-shadow: inset 6px 6px 12px #c8c8c8, inset -6px -6px 12px #ffffff
+    }
+    
+    .bar {
+        width: 50%;
+        height: 2px;
+        margin: auto;
+        background: var(--prog);
+        border-radius: 25px;
+        position: absolute;
+        left: 25%;
+        bottom: 1rem;
+    }
+    
+    .credit {
+        background: linear-gradient(45deg, #3297D3, #8FEFFB);
+        color: var(--black);
+        padding: 1rem 0;
+        text-align: center;
+    }
+    /* .art {
+        animation: rolling-disk 7.5s 0.25s linear infinite;
+    } */
+    /* .prog-bar-inner {
+        animation: timer 30s linear 0.1s;
+    }
+    
+    @keyframes timer {
+        0% {
+            width: 0%;
+        }
+        100% {
+            width: 100%;
+        }
+    }
+    
+    @keyframes rolling-disk {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(1turn);
+        }
+    } */
+    
+    .play-list {
+        display: none;
+        z-index: 10;
+        align-items: center;
+        height: 300px;
+        justify-items: center;
+        left: 50%;
+        padding: 0 20px;
+        transform: translateX(-50%);
+        width: 100%;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        position: absolute
+    }
+    
+    .play-list .song {
+        height: 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .info-list {
+        display: flex;
+        align-items: center;
+    }
+    
+    .img-list {
+        width: 60px;
+        height: 60px;
+        background: var(--prog);
+        margin-right: 10px;
+    }
+    
+    .titles h5,
+    .titles p {
+        margin: 0;
+        color: black;
+    }
+    
+    .titles p {
+        font-size: 13px;
+        color: #929292;
+    }
+    
+    .titles h5 {
+        font-size: 17px;
+        font-weight: 400;
+        margin-bottom: 7px;
+    }
+    
+    .state.playing i {
+        color: var(--prog);
+    }
+    
+    .state i {
+        color: #ddd;
+    }
+</style>
+
+<body>
+    <audio id="id-audio-player" src="./musics/1.mp3"></audio>
+
+    <main class="player">
+        <div class="header">
+            <a href="#" class="button list-button">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+                <span class="sr-only">menu bar</span>
+            </a>
+            <p class="random-status">Now Playing</p>
+            <!-- <a href="#" class="button">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <span class="sr-only">Search</span>
+            </a> -->
+        </div>
+        <!--  header  -->
+
+        <div class="play-list">
+            <div class="song">
+                <div class="info-list">
+                    <img class="img-list img-0"></img>
+                    <div class="titles">
+                        <h5 class="title-0"></h5>
+                        <p class="artist-0"></p>
+                    </div>
+                </div>
+                <div class="state playing">
+                    <i class="list-state fas fa-play fa-pause" id="path-0" data-path="0" aria-hidden="true"></i>
+                </div>
+            </div>
+
+            <div class="song">
+                <div class="info-list">
+                    <img class="img-list img-1"></img>
+                    <div class="titles">
+                        <h5 class="title-1"></h5>
+                        <p class="artist-1"></p>
+                    </div>
+                </div>
+                <div class="state playing">
+                    <i class="list-state fas fa-play fa-pause" id="path-1" data-path="1" aria-hidden="true"></i>
+                </div>
+            </div>
+
+            <div class="song">
+                <div class="info-list">
+                    <img class="img-list img-2"></img>
+                    <div class="titles">
+                        <h5 class="title-2"></h5>
+                        <p class="artist-2"></p>
+                    </div>
+                </div>
+                <div class="state playing">
+                    <i class="list-state fas fa-play fa-pause" id="path-2" data-path="2" aria-hidden="true"></i>
+                </div>
+            </div>
+
+            <div class="song">
+                <div class="info-list">
+                    <img class="img-list img-3"></img>
+                    <div class="titles">
+                        <h5 class="title-3"></h5>
+                        <p class="artist-3"></p>
+                    </div>
+                </div>
+                <div class="state playing">
+                    <i class="list-state fas fa-play fa-pause" id="path-3" data-path="3" aria-hidden="true"></i>
+                </div>
+            </div>
+
+        </div>
+
+
+        <img alt="album art" class="art" id="rotate-cover">
+        <!--  art  -->
+        <div class="info">
+            <h1 class="artist"></h1>
+            <p class="mtitle"></p>
+        </div>
+        <!--  info  -->
+        <div class="prog">
+            <div class="prog-time">
+                <p class="left" id="id-span-currentTime">0:00</p>
+                <p class="right" id="id-span-totalTime">0:00</p>
+            </div>
+            <div class="prog-bar">
+                <!-- <div class="prog-bar-inner"></div> -->
+                <div class="outer">
+                    <div class="inner">
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  progress  -->
+        <ul class="buttons">
+            <a href="#" class="button button-sm" id="id-button-random">
+                <i class="fas fa-random fa-list" aria-hidden="true" id="id-random-icon"></i>
+                <span class="sr-only">Shuffle</span>
+            </a>
+            <a href="#" class="button button-md" id="id-button-pre">
+                <i class="fas fa-step-backward" aria-hidden="true"></i>
+                <span class="sr-only">Previous Music</span>
+            </a>
+            <a href="#" class="button button-lg" id="id-button-play">
+                <i class="fas fa-play fa-pause" aria-hidden="true" aria-hidden="true" id="id-play-icon"></i>
+                <span class="sr-only">Pause</span>
+            </a>
+            <a href="#" class="button button-md" id="id-button-next">
+                <i class="fas fa-step-forward"></i>
+                <span class="sr-only">Next Music</span>
+            </a>
+            <a href="#" class="button button-sm" id="id-button-single">
+                <i class="fas fa-circle-notch fa-circle" aria-hidden="true" id="id-single-icon"></i>
+                <span class="sr-only">Repeat Song</span>
+            </a>
+        </ul>
+        <!--  buttons  -->
+        <div class="bar"></div>
+        <!--  bar  -->
+    </main>
+
+    <!-- <table border="0" cellspacing="0" cellpatding="0">
+        <tr>
+            <td></td>
+            <td colspan="2">请选择你的音乐文件：
+                <script>
+                    if (typeof FileReader === "undefined") document.write('<span class="warning">[Not supported by your browser]</span>')
+                </script>
+                <input type="file" id="file" onchange="load(this)" accept="audio/mpeg,video/x-ms-wmv">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="2">
+                &nbsp;
+                <audio id="audio" controls="" loop="loop"></audio>
+            </td>
+        </tr>
+        <tr>
+            <td>歌手：</td>
+            <td id="artist"></td>
+        </tr>
+        <tr>
+            <td>歌名：</td>
+            <td id="title"></td>
+        </tr>
+        <tr>
+            <td>唱片：</td>
+            <td id="album"></td>
+        </tr>
+        <tr>
+            <td>年份：</td>
+            <td id="year"></td>
+        </tr>
+        <tr>
+            <td>评论：</td>
+            <td id="comment"></td>
+        </tr>
+        <tr>
+            <td>类型：</td>
+            <td id="genre"></td>
+        </tr>
+        <tr>
+            <td>Track：</td>
+            <td id="track"></td>
+        </tr>
+        <tr>
+            <td>歌词：</td>
+            <td id="lyrics"></td>
+        </tr>
+        <tr>
+            <td>封面：</td>
+            <td><img id="art" width="50px" height="50px" src="" hidden></td>
+        </tr>
+    </table> -->
+
+
+
+
+
+
+
+    <script src="./kuro.js"></script>
+    <script src="./ftas.js"></script>
+    <link href="./roboto.css" rel="stylesheet">
+
+    <script src="./id3-minimized.js"></script>
+    <script src="./id3reader.js"></script>
+    <script src="./mp.js"></script>
+
+
+
+
+
+
+</body>
+
+</html>

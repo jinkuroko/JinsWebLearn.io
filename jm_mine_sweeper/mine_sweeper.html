@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 完成的样式 */
+        
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        div {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .jm-button {
+            border: none;
+            background-color: transparent;
+            outline: none;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 15px;
+            border-radius: 8px;
+            background: #f4f0ea;
+            outline: 1px solid cornflowerblue;
+        }
+        
+        .container {
+            text-align: center;
+            position: relative;
+        }
+        
+        .head {
+            display: block;
+        }
+        
+        .option {
+            margin-top: 10px;
+            display: block;
+            /* background-color: cornflowerblue; */
+            width: 500px;
+            height: 20px;
+        }
+        
+        .game-window {
+            display: inline-block;
+            margin-top: 40px;
+            background-color: lightgray;
+            border-radius: 8px;
+            background: #f4f0ea;
+            outline: 20px solid cornflowerblue;
+        }
+        
+        .game-window ::after,
+        .game-window ::before {
+            content: "";
+            display: block;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+        
+        .mine-col {
+            float: left;
+            display: block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border: 2px solid cornflowerblue;
+            margin: 0 -2px -2px 0;
+            background-image: url('coveredBlock.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .vertical-center {
+            top: 50%;
+            position: relative;
+            transform: translateY(-50%);
+        }
+        
+        .horizental-center {
+            left: 50%;
+            position: relative;
+            transform: translateX(-50%);
+        }
+        /* .game-window2 {
+            display: inline-block;
+            background-color: lightgray;
+        }
+        
+        .game-window2 ::after,
+        .game-window2 ::before {
+            content: "";
+            display: block;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        } */
+        /* .mine-col2 {
+            float: left;
+            display: block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border: 0.5px solid cornflowerblue;
+            background-image: url('coveredBlock.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+         */
+        
+        .start-button {
+            display: inline-block;
+            margin: 0 auto;
+        }
+        
+        @font-face {
+            font-family: "iconfont";
+            /* Project id  */
+            src: url('iconfont.ttf?t=1633664968904') format('truetype');
+        }
+        
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 18px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .value-1 {
+            color: black;
+        }
+        
+        .value-2 {
+            color: blue;
+        }
+        
+        .value-3 {
+            color: red;
+        }
+        
+        .value-4 {
+            color: green;
+        }
+        
+        .value-5 {
+            color: cornflowerblue;
+        }
+        
+        .value-6 {
+            color: orange;
+        }
+        
+        .value-7 {
+            color: yellow;
+        }
+        
+        .value-8 {
+            color: palevioletred;
+        }
+        
+        .vertical-topmargin {
+            top: 200px;
+            border-radius: 8px;
+            background: #f4f0ea;
+            outline: 20px solid cornflowerblue;
+        }
+        
+        .logo-button {
+            width: 80px;
+            height: 60px;
+            background-image: url('./O.png');
+            background-repeat: no-repeat;
+            background-size: 200%;
+            background-position: left 100% top 00%;
+        }
+        
+        .outer {
+            position: relative;
+            margin-top: 5px;
+            width: 100px;
+            height: 2px;
+            margin-bottom: 5px;
+            background: lime;
+        }
+        
+        .inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: tomato;
+        }
+        
+        .dot {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: cornflowerblue;
+            cursor: pointer;
+        }
+        
+        .option-part {
+            padding: 0 20px;
+            display: inline-block;
+        }
+        /*------------------------------------------------------*/
+        
+        .test_triangle_border {
+            vertical-align: top;
+            display: inline-block;
+            position: relative;
+            width: 200px;
+            text-align: center;
+        }
+        
+        .test_triangle_border a {
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .test_triangle_border .popup {
+            display: block;
+            position: absolute;
+            left: 10px;
+            padding: 10px 20px;
+            width: 100px;
+            background: cornflowerblue;
+            color: #333;
+            border-radius: 4px;
+            border: 1px solid #333;
+            text-align: left;
+        }
+        
+        .test_triangle_border .popup span {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            /* 三角形居中显示 */
+            margin-left: -10px;
+            /* 三角形居中显示 */
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-right: 10px solid #333;
+            border-bottom: 10px solid transparent;
+        }
+        
+        .test_triangle_border .popup em {
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-right: 10px solid cornflowerblue;
+            border-bottom: 10px solid transparent;
+            position: absolute;
+            top: -10px;
+            left: 1px;
+        }
+        
+        .hint-speech {
+            color: white;
+            font-size: 14px;
+        }
+        
+        .head {
+            margin-top: 20px;
+            padding-left: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container horizental-center vertical-center">
+        <h2>JM's Mine-Sweeper</h2>
+        <div class="head">
+            <button class="jm-button logo-button start-button"></button>
+            <div class="test_triangle_border">
+                <div class="popup">
+                    <span><em></em></span>
+                    <div class="hint-speech">
+                        调整难度后,点我可以刷新哦
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="option horizental-center">
+            <div class="option-part">
+
+                <span>
+                        方格数量:
+                        <em id="id-em-move-count">5</em>
+                        </span>
+                <div class="outer outer-count">
+                    <div class="inner inner-count">
+                        <div class="dot dot-count"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="option-part">
+
+                <span>
+                        地雷比例:
+                        <em id="id-em-move-rate">0.1</em>
+                        </span>
+                <div class="outer outer-rate">
+                    <div class="inner inner-rate">
+                        <div class="dot dot-rate"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="game-window"></div>
+    </div>
+
+
+
+    <script src="mine_sweeper.js"></script>
+</body>
+
+</html>
